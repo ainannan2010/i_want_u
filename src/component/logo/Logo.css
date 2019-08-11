@@ -1,0 +1,9 @@
+.LogoWapper {
+  margin: 50px 0 20px;
+  text-align: center;
+}
+.logoStyle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
