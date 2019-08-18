@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/Logo';
-import { loginSubmit } from '../../redux/loginReducer';
+import { loginSubmit } from '../../redux/userReducer';
 
 @connect(
-  ({ loginReducer }) => ({ loginReducer }),
+  ({ userReducer }) => ({ userReducer }),
   { loginSubmit }
 )
 class Login extends React.Component {
@@ -30,7 +30,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { loginReducer: { msg, redirectTo } } = this.props;
+    const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="loginWapper">
         {redirectTo ? <Redirect to={redirectTo} /> : null}

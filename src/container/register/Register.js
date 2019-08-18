@@ -3,11 +3,11 @@ import { List, InputItem, WingBlank, WhiteSpace, Button, Radio } from 'antd-mobi
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/Logo';
-import { registerSubmit } from '../../redux/registerReducer'
+import { registerSubmit } from '../../redux/userReducer'
 const { RadioItem } = Radio;
 
 @connect(
-  ({ registerReducer }) => ({ registerReducer }),
+  ({ userReducer }) => ({ userReducer }),
   { registerSubmit }
 )
 class Register extends React.Component {
@@ -32,7 +32,7 @@ class Register extends React.Component {
   }
   render() {
     const { type } = this.state;
-    const { registerReducer: { isAuth, msg, redirectTo } } = this.props;
+    const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="registerWapper">
         <Logo />

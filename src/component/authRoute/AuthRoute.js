@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { loadData } from '../../redux/loginReducer'
+import { loadData } from '../../redux/userReducer'
 
 @withRouter
 @connect(
@@ -36,9 +36,7 @@ class AuthRoute extends React.Component {
   }
   render() {
     return (
-      <div className="wrapper">
-        1
-      </div>
+      <div className="wrapper" />
     );
   }
 }

@@ -3,11 +3,13 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 // import thunk from 'react-thunk';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import Login from './container/login/Login';
 import Register from './container/register/Register';
 import AuthRoute from './component/authRoute/AuthRoute';
+import BossInfo from './container/bossInfo/BossInfo';
+import geniusInfo from './container/geniusInfo/GeniusInfo';
 import * as serviceWorker from './serviceWorker';
 import reducers from './redux';
 
@@ -17,9 +19,10 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthRoute />
-      <Route path='/boss' component={Boss} exact />
       <Route path='/login' component={Login} exact />
       <Route path='/register' component={Register} />
+      <Route path='/bossinfo' component={BossInfo} exact />
+      <Route path='/geniusinfo' component={geniusInfo} exact />
     </BrowserRouter>
   </Provider>
   , document.getElementById('root'));
@@ -28,9 +31,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-function Boss() {
-  return (
-    <div>233333</div>
-  )
-}
