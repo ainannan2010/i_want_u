@@ -6,9 +6,10 @@ const User = model.getModel('user');
 const _filter = { pwd: 0, __v: 0 };
 
 Router.get('/list', function(req, res) {
+  const { type } = req.query;
   // User.remove({}, function(e, d){}) // 清空数据库用户表
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  User.find({ type }, _filter, function(err, doc) {
+    return res.json({ code: 0, data: doc })
   })
 })
 
@@ -49,7 +50,6 @@ Router.post('/register', function(req, res) {
     //   if (e) {
     //     return res.json({ code: 1, msg: '后端出错了' })
     //   } else {
-    //     console.log(d, 2345)
     //     res.json({ code: 0 })
     //   }
     // })
