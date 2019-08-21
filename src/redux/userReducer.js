@@ -14,6 +14,7 @@ const LOGIN_FAILURE = 'LOGIN_FAILURE'
 const REGISTER_FAILURE = 'REGISTER_FAILURE'
 const LOAD_DATA = 'LOAD_DATA';
 const UPDATE_DATA = 'UPDATE_DATA';
+const LOGOUT = 'LOGOUT';
 // reducer
 export default function userReducer(state = initState, action) {
   switch (action.type) {
@@ -27,6 +28,8 @@ export default function userReducer(state = initState, action) {
       return { ...state, ...action.payload, isAuth: false }
     case UPDATE_DATA:
       return { ...state, ...action.payload }
+    case LOGOUT:
+      return { ...initState, redirectTo: '/login' }
     default:
       return state;
   }
@@ -99,5 +102,8 @@ function errorMsg(data) {
 
 export function loadData(data) {
   return { type: LOAD_DATA, payload: data }
+}
+export function logoutSubmit() {
+  return { type: LOGOUT }
 }
 

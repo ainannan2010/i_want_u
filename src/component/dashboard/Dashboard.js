@@ -5,6 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import NavlinkBar from '../../component/navlink/NavlinkBar';
 import Boss from '../../component/boss/Boss';
 import Genius from '../../component/genius/Genius';
+import User from '../../component/user/User';
+import Msg from '../../component/msg/Msg';
 
 @connect(
   state => state
@@ -69,18 +71,8 @@ export default Dashboard;
 
 function Header(props) {
   const { data: { navList, pathname } } = props;
+  const dom = navList.find(v => v.path === pathname);
   return (
-    <NavBar mode="dark" >{navList.find(v => v.path === pathname).title}</NavBar>
-  )
-}
-
-function Msg(params) {
-  return (
-    <div>Msg页面</div>
-  )
-}
-function User(params) {
-  return (
-    <div>个人中心</div>
+    <NavBar mode="dark" >{dom ? dom.title : null}</NavBar>
   )
 }

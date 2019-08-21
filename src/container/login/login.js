@@ -33,7 +33,7 @@ class Login extends React.Component {
     const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="loginWapper">
-        {redirectTo ? <Redirect to={redirectTo} /> : null}
+        {(redirectTo && redirectTo !== '/login') ? <Redirect to={redirectTo} /> : null}
         <Logo />
         <WingBlank>
           <div style={{ color: 'red', marginBottom: 10 }}>{msg ? msg : null}</div>

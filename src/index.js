@@ -22,7 +22,7 @@ ReactDOM.render(
       <AuthRoute />
       <Switch>
         <Route path='/login' component={Login} exact />
-        <Route path='/register' component={Register} />
+        <Route path='/register' component={Register} exact />
         <Route path='/bossinfo' component={BossInfo} exact />
         <Route path='/geniusinfo' component={geniusInfo} exact />
         <Route component={Dashboard} />
