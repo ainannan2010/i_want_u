@@ -4,34 +4,24 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/Logo';
 import { registerSubmit } from '../../redux/userReducer'
+import WzynHigher from '../../component/wzynHigher/WzynHigher'
 const { RadioItem } = Radio;
 
 @connect(
   ({ userReducer }) => ({ userReducer }),
   { registerSubmit }
 )
+@WzynHigher
 class Register extends React.Component {
-
-  state = {
-    user: '',
-    pwd: '',
-    repeatPwd: '',
-    type: 'genius'
-  }
-  _gotoRegisterPage = () => {
-
-  }
-  _handelChange = (key, val) => {
-    this.setState({
-      [key]: val
-    })
+  componentDidMount() {
+    this.props._handelChange('type', 'genius')
   }
   _registerSubmit = () => {
-    const { user, pwd, repeatPwd, type } = this.state;
+    const { user, pwd, repeatPwd, type } = this.props.state;
     this.props.registerSubmit({ user, pwd, repeatPwd, type });
   }
   render() {
-    const { type } = this.state;
+    const { type } = this.props.state;
     const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="registerWapper">
@@ -41,31 +31,31 @@ class Register extends React.Component {
           <div style={{ color: 'red', marginBottom: 10 }}>{msg ? msg : null}</div>
           <List>
             <InputItem
-              onChange={val => this._handelChange('user', val)}
+              onChange={val => this.props._handelChange('user', val)}
             >
               用户名
             </InputItem>
             <InputItem
-              onChange={val => this._handelChange('pwd', val)}
+              onChange={val => this.props._handelChange('pwd', val)}
               type='password'
             >
               密码
             </InputItem>
             <InputItem
-              onChange={val => this._handelChange('repeatPwd', val)}
+              onChange={val => this.props._handelChange('repeatPwd', val)}
               type='password'
             >
               确认密码
             </InputItem>
             <RadioItem
               checked={type === 'genius'}
-              onChange={() => this._handelChange('type', 'genius')}
+              onChange={() => this.props._handelChange('type', 'genius')}
             >
               牛人
             </RadioItem>
             <RadioItem
               checked={type === 'boss'}
-              onChange={() => this._handelChange('type', 'boss')}
+              onChange={() => this.props._handelChange('type', 'boss')}
             >
               BOSS
             </RadioItem>

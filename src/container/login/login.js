@@ -4,32 +4,26 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/Logo';
 import { loginSubmit } from '../../redux/userReducer';
+import WzynHigher from '../../component/wzynHigher/WzynHigher';
 
 @connect(
   ({ userReducer }) => ({ userReducer }),
   { loginSubmit }
 )
+@WzynHigher
 class Login extends React.Component {
-  state = {
-    user: '',
-    pwd: ''
-  }
+
   _gotoRegisterPage = () => {
     this.props.history.push('/register')
   }
 
   _loginSubmit = () => {
-    const { user, pwd } = this.state;
+    const { user, pwd } = this.props.state;
     this.props.loginSubmit({ user, pwd });
   }
 
-  _handelChange = (key, val) => {
-    this.setState({
-      [key]: val
-    })
-  }
-
   render() {
+
     const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="loginWapper">
@@ -38,13 +32,13 @@ class Login extends React.Component {
         <WingBlank>
           <div style={{ color: 'red', marginBottom: 10 }}>{msg ? msg : null}</div>
           <List>
-          <InputItem
-              onChange={val => this._handelChange('user', val)}
+            <InputItem
+              onChange={val => this.props._handelChange('user', val)}
             >
               用户名
             </InputItem>
             <InputItem
-              onChange={val => this._handelChange('pwd', val)}
+              onChange={val => this.props._handelChange('pwd', val)}
               type='password'
             >
               密码
