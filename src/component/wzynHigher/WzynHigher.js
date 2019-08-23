@@ -1,8 +1,6 @@
 import React from 'react';
-import { thisExpression } from '@babel/types';
 
-
-export default function WzynHigher(Component) {
+ function WzynHigher(Component) {
   class WrapComponent extends React.Component {
     state = {}
     _handelChange = (key, val) => {
@@ -20,3 +18,5 @@ export default function WzynHigher(Component) {
   }
   return WrapComponent
 }
+
+export default WzynHigher

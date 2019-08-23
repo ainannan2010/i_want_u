@@ -5,7 +5,7 @@ import logoImg from '../../image/logo.png';
 class Logo extends React.Component {
   render() {
     return (
-      <div className="LogoWapper">
+      <div className="LogoWrapper">
         <img
           className="logoStyle"
           src={logoImg}

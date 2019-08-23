@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#chat-page .chat-me .am-list-extra {
+  flex-basis: auto;
+}
+
+#chat-page .chat-me .am-list-content {
+  text-align: right;
+  padding-right: 15px;
+}
+
+#chat-page .am-grid-icon {
+  display: none;
+}
+
+#chat-page .am-grid-text {
+  margin-top: 0;
+}
+
+.stick-footer {
+  z-index: 10;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
-// import thunk from 'react-thunk';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import thunk from 'redux-thunk';
@@ -11,11 +10,14 @@ import AuthRoute from './component/authRoute/AuthRoute';
 import Dashboard from './component/dashboard/Dashboard';
 import BossInfo from './container/bossInfo/BossInfo';
 import geniusInfo from './container/geniusInfo/GeniusInfo';
+import Chat from './component/chat/Chat';
 import * as serviceWorker from './serviceWorker';
 import reducers from './redux';
+import './index.css';
 
 const reduxDevTool = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => { }; // 是否存在redux；
-const store = createStore(reducers, compose(applyMiddleware(thunk), reduxDevTool));
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
+// const store = createStore(reducers, compose(applyMiddleware(thunk), reduxDevTool));
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -25,6 +27,7 @@ ReactDOM.render(
         <Route path='/register' component={Register} exact />
         <Route path='/bossinfo' component={BossInfo} exact />
         <Route path='/geniusinfo' component={geniusInfo} exact />
+        <Route path='/chat/:user' component={Chat} exact />
         <Route component={Dashboard} />
       </Switch>
     </BrowserRouter>
