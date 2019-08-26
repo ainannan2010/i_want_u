@@ -15,9 +15,8 @@ import * as serviceWorker from './serviceWorker';
 import reducers from './redux';
 import './index.css';
 
-const reduxDevTool = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : () => { }; // 是否存在redux；
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
-// const store = createStore(reducers, compose(applyMiddleware(thunk), reduxDevTool));
+const reduxDevTool = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : a => a; // 是否存在redux；
+const store = createStore(reducers, compose(applyMiddleware(thunk), reduxDevTool));
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

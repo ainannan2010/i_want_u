@@ -29,17 +29,18 @@ class Msg extends React.Component {
           {
             chatList.map((item, i) => {
               const lastItem = this.getLast(item);
-              const name = users[lastItem.from].name;
-              const avatar = require(`../../image/${users[lastItem.from].avatar}.png`);
+              const targetId = lastItem.from === userid ? lastItem.to : lastItem.from
+              const avatar = require(`../../image/${users[targetId].avatar}.png`);
+              const name = users[targetId].name;
               const unreadNum = item.filter(v => !v.read && v.to === userid).length;
-              const goId = lastItem.from === userid ? lastItem.to : lastItem.from
+              
               return (
                 <List.Item
                   key={i}
                   thumb={avatar}
                   extra={<Badge text={unreadNum}></Badge>}
                   arrow="horizontal"
-                  onClick={() => this.props.history.push(`/chat/${goId}`)}
+                  onClick={() => this.props.history.push(`/chat/${targetId}`)}
                 >
                   {lastItem.content}
                   <List.Item.Brief style={{ fontSize: 14 }}>{name}</List.Item.Brief>

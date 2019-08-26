@@ -1,11 +1,11 @@
 import React from 'react';
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { connect } from 'react-redux';
-import { getMsglist, sendMsg, recvMsg } from '../../redux/chatReducer';
+import { getMsglist, sendMsg, recvMsg, readMsg } from '../../redux/chatReducer';
 import { getChatId } from '../../util';
 @connect(
   state => state,
-  { getMsglist, sendMsg, recvMsg }
+  { getMsglist, sendMsg, recvMsg, readMsg }
 )
 class Chat extends React.Component {
   state = {
@@ -19,13 +19,16 @@ class Chat extends React.Component {
       this.props.recvMsg();
     }
   }
-
+  componentWillUnmount() {
+    const { user } = this.props.match.params;
+    // 更新已读信息
+    this.props.readMsg(user)
+  }
   _handleFixedCarousel = () => {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
     }, 0);
   }
-
   _submit = () => {
     const { userReducer, match } = this.props;
     const from = userReducer._id;

@@ -108,6 +108,23 @@ Router.get('/getmsglist', function (req, res) {
 
 })
 
+// 更新未读消息
+Router.post('/readmsg', function (req, res) {
+  const { userId } = req.cookies;
+  const { from } = req.body;
+  Chat.update(
+    { from, to: userId },
+    { '$set': { read: true } },
+    { 'multi': true },
+    function (err, doc) {
+      if (!err) {
+        return res.json({ code: 0, num: doc.nModified })
+      }
+      return res.json({ code: 1, msg: '修改失败' })
+    })
+
+})
+
 function md5Pwd(pwd) {
   const slat = '1234567890!@#$%^&*(QWERTYUIOzxcvbnm';
   return utils.md5(utils.md5(pwd + slat));
