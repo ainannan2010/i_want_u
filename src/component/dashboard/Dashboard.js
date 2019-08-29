@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavBar } from 'antd-mobile';
-import { Switch, Route } from 'react-router-dom';
+import QueueAnim from 'rc-queue-anim';
+import { Route } from 'react-router-dom';
 import NavlinkBar from '../../component/navlink/NavlinkBar';
 import Boss from '../../component/boss/Boss';
 import Genius from '../../component/genius/Genius';
@@ -56,15 +57,17 @@ class Dashboard extends React.Component {
         isShow: true
       }
     ]
+    const page = navList.find(v => v.path === pathname)
+    console.log(page)
     return (
       <div className="wrapper">
         <div style={{ position: 'fixed', top: 0, width: '100%' }}>
           <Header data={{ navList, pathname }} />
-          <Switch>
-            {
-              navList.map((item, index) => (<Route key={index} path={item.path} component={item.component} exact />))
-            }
-          </Switch>
+          <QueueAnim
+            type="right"
+          >
+            <Route key={page.path} path={page.path} component={page.component} />
+          </QueueAnim>
         </div>
         <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
           <NavlinkBar data={navList} />
