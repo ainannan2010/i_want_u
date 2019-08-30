@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
       }
     ]
     const page = navList.find(v => v.path === pathname)
-    console.log(page)
+    if (!page) return null;
     return (
       <div className="wrapper">
         <div style={{ position: 'fixed', top: 0, width: '100%' }}>

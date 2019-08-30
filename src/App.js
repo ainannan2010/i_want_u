@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      new project start
+      new project start!
     </div>
   );
 }
