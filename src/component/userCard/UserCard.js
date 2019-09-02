@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile';
 import { withRouter } from 'react-router-dom';
+import './UserCard.css';
 const { Header, Body } = Card;
 @withRouter
 class UserCard extends React.Component {
@@ -14,11 +15,11 @@ class UserCard extends React.Component {
   render() {
     const { userlist } = this.props;
     return (
-      <div className="wapper">
+      <div className="cardWapper">
         <WingBlank>
           <WhiteSpace />
           {
-            userlist.reverse().map((item, index) => (
+            userlist.map((item, index) => (
               <Card
                 key={index}
                 onClick={() => this._handleClick(item)}

@@ -35,3 +35,8 @@ code {
   bottom: 0;
   width: 100%;
 }
+.error_page {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

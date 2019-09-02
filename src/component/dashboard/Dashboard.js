@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavBar } from 'antd-mobile';
 import QueueAnim from 'rc-queue-anim';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import NavlinkBar from '../../component/navlink/NavlinkBar';
 import Boss from '../../component/boss/Boss';
 import Genius from '../../component/genius/Genius';
@@ -58,31 +58,32 @@ class Dashboard extends React.Component {
       }
     ]
     const page = navList.find(v => v.path === pathname)
-    if (!page) return null;
+    const styles = {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0
+    }
     return (
-      <div className="wrapper">
-        <div style={{ position: 'fixed', top: 0, width: '100%' }}>
-          <Header data={{ navList, pathname }} />
-          <QueueAnim
-            type="right"
-          >
-            <Route key={page.path} path={page.path} component={page.component} />
-          </QueueAnim>
+      page ?
+        <div style={styles}>
+          <div><NavBar mode="dark" >{page.title}</NavBar></div>
+          <div style={{ flex: 1, overflow: 'auto' }}>
+            <QueueAnim
+              type="right"
+            >
+              <Route key={page.path} path={page.path} component={page.component} />
+            </QueueAnim>
+          </div>
+          <div><NavlinkBar data={navList} /></div>
         </div>
-        <div style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-          <NavlinkBar data={navList} />
-        </div>
-      </div>
+        : <Redirect to="/msg" />
     );
   }
 }
 
 export default Dashboard;
-
-function Header(props) {
-  const { data: { navList, pathname } } = props;
-  const dom = navList.find(v => v.path === pathname);
-  return (
-    <NavBar mode="dark" >{dom ? dom.title : null}</NavBar>
-  )
-}

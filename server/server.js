@@ -8,18 +8,24 @@ import model from './model';
 const Chat = model.getModel('chat');
 const app = express();
 
+import csshook from 'css-modules-require-hook/preset'
+import assethook from 'asset-require-hook'
+assethook({ extensions: ['png'] })
 import React from 'react';
-import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
+import staticPath from '../build/asset-manifest.json';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
+import App from '../src/App';
+import reducers from '../src/redux';
 
 // Chat.remove({}, function(err, doc) {
 //   if(!err) {
 //     console.log('清空聊天记录')
 //   }
 // })
-
-function App() {
-  return <div>rock never die!</div>
-}
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -39,8 +45,48 @@ app.use(function (req, res, next) {
   if (req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
     return next()
   }
-  res.send(renderToString(<App />))
-  // return res.sendFile(path.resolve('build/index.html'))
+  const store = createStore(reducers, compose(applyMiddleware(thunk)));
+  let context = {}
+  const obj = {
+    '/msg': 'React聊天信息列表',
+    '/boss': 'boss查看牛人列表'
+  }
+  res.write(`<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="theme-color" content="#000000" />
+      <meta name="keywords" content="React,Redux,node,SSR,聊天" />
+      <meta
+        name="description"
+        content="${obj[req.url]}"
+      />
+      <link rel="stylesheet" href="/${staticPath['files']['main.css']}"
+      <title>I WANT U</title>
+    </head>
+    <body>
+      <noscript>You need to enable JavaScript to run this app.</noscript>
+      <div id="root">`
+  )
+  const markupStream = renderToNodeStream(
+    <Provider store={store}>
+      <StaticRouter
+        location={req.url}
+        context={context}
+      >
+        <App />
+      </StaticRouter>
+    </Provider>
+  )
+  markupStream.pipe(res, { end: false })
+  markupStream.on('end', () => {
+    res.write(`</div>
+        <script src="/${staticPath['files']['main.js']}></script>
+      </body>
+    </html>`)
+    res.end()
+  })
 })
 app.use('/', express.static(path.resolve('build'))) // static resource
 server.listen(9093, function () {
