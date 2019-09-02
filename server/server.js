@@ -2,12 +2,13 @@ import express from 'express';
 // const express = require('express');
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import userRouter from './user';
 import path from 'path';
 import model from './model';
 const Chat = model.getModel('chat');
 const app = express();
-
+app.use(cors())
 import csshook from 'css-modules-require-hook/preset'
 import assethook from 'asset-require-hook'
 assethook({ extensions: ['png'] })

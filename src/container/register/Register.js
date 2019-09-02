@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem, WingBlank, WhiteSpace, Button, Radio } from 'antd-mobile';
+import { List, InputItem, WingBlank, WhiteSpace, Button, Radio, NavBar, Icon } from 'antd-mobile';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Logo from '../../component/logo/Logo';
@@ -25,6 +25,11 @@ class Register extends React.Component {
     const { userReducer: { msg, redirectTo } } = this.props;
     return (
       <div className="registerWapper">
+        <NavBar
+          mode='light'
+          icon={<Icon type="left" />}
+          onLeftClick={() => this.props.history.goBack()}
+        ></NavBar>
         <Logo />
         {redirectTo ? <Redirect to={redirectTo} /> : null}
         <WingBlank>
