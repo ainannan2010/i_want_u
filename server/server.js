@@ -47,6 +47,9 @@ app.use(function (req, res, next) {
   }
   const store = createStore(reducers, compose(applyMiddleware(thunk)));
   let context = {}
+  let reg = /^static\/(css|js)\/.+\.chunk\.(css|js)$/
+  // 匹配对象里变化的哈希值
+  let load = Object.keys(staticPath.files).filter(v => reg.test(v))
   const obj = {
     '/msg': 'React聊天信息列表',
     '/boss': 'boss查看牛人列表'
@@ -62,7 +65,8 @@ app.use(function (req, res, next) {
         name="description"
         content="${obj[req.url]}"
       />
-      <link rel="stylesheet" href="/${staticPath['files']['main.css']}"
+      <link rel="stylesheet" href="${staticPath['files']['main.css']}" />
+      <link rel="stylesheet" href="${staticPath['files'][load[0]]}" />
       <title>I WANT U</title>
     </head>
     <body>
@@ -82,7 +86,9 @@ app.use(function (req, res, next) {
   markupStream.pipe(res, { end: false })
   markupStream.on('end', () => {
     res.write(`</div>
-        <script src="/${staticPath['files']['main.js']}></script>
+        <script src="${staticPath['files']['main.js']}"></script>
+        <script src="${staticPath['files']['runtime~main.js']}"></script>
+        <script src="${staticPath['files'][load[1]]}"></script>
       </body>
     </html>`)
     res.end()
