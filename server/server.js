@@ -6,12 +6,8 @@ import cors from 'cors';
 import userRouter from './user';
 import path from 'path';
 import model from './model';
-const Chat = model.getModel('chat');
-const app = express();
-app.use(cors())
 import csshook from 'css-modules-require-hook/preset'
 import assethook from 'asset-require-hook'
-assethook({ extensions: ['png'] })
 import React from 'react';
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import staticPath from '../build/asset-manifest.json';
@@ -21,6 +17,10 @@ import { StaticRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import App from '../src/App';
 import reducers from '../src/redux';
+const Chat = model.getModel('chat');
+const app = express();
+app.use(cors())
+assethook({ extensions: ['png'] })
 
 // Chat.remove({}, function(err, doc) {
 //   if(!err) {
