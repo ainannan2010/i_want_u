@@ -1,6 +1,5 @@
 import React from 'react';
 import './Logo.css';
-import { Flex } from 'antd-mobile';
 
 class Logo extends React.Component {
   render() {
