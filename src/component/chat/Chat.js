@@ -43,11 +43,13 @@ class Chat extends React.Component {
     // 更新已读信息
     this.props.readMsg(user)
   }
+
   _handleFixedCarousel = () => {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
     }, 0);
   }
+
   _submit = () => {
     const { userReducer, match } = this.props;
     const from = userReducer._id;
@@ -100,6 +102,7 @@ class Chat extends React.Component {
       left: 0,
       right: 0
     }
+    
     return (
       <div id="chat-page" style={styles}>
         <NavBar
