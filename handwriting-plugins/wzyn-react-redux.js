@@ -24,6 +24,7 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
       this.update();
       store.subscribe(() => this.update())
     }
+
     update() {
       const { store } = this.context;
       const stateProps = mapStateToProps(store.getState());
@@ -36,9 +37,11 @@ export const connect = (mapStateToProps = state => state, mapDispatchToProps = {
         }
       })
     }
+
     render() {
       return <WrapComponent {...this.state.props}></WrapComponent>
     }
+    
   }
 }
 // Provider, 把store放到context里，所有的子元素可以直接取到store
